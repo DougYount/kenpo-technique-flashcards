@@ -1,47 +1,66 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
-  </q-page>
+  <div class="fullscreen text-center q-pa-md flex flex-center">
+    <q-card flat bordered style="width: 800px; max-width: 800px">
+      <q-card-section>
+        <q-card-section>
+          <div class="text-h5">Technique Flash Cards</div>
+          <div>Choose the techniques that you would like to show in the flashcards.</div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section>
+          <q-scroll-area style="height: 200px">
+            <q-list dense class="q-py-xs">
+              <q-item-label header>Yellow Belt</q-item-label>
+              <q-item v-for="technique in yellowTechniques" :key="technique.TechniqueName">
+                <q-item-section side>
+                  <q-checkbox v-model="technique.IncludedInFlashcards" />
+                </q-item-section>
+                <q-item-section class="text-left">
+                  <q-item-label>{{ technique.TechniqueName }}</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-separator />
+              <q-item-label header>Orange Belt</q-item-label>
+              <q-item v-for="technique in orangeTechniques" :key="technique.TechniqueName">
+                <q-item-section side>
+                  <q-checkbox v-model="technique.IncludedInFlashcards" />
+                </q-item-section>
+                <q-item-section class="text-left">
+                  <q-item-label>{{ technique.TechniqueName }}</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-scroll-area>
+        </q-card-section>
+        <q-separator />
+      </q-card-section>
+      <q-card-section>
+        <div class="row">
+          <div class="col">
+            <q-input dense outlined clearable v-model="store.overrideTimeToPerform" label="Override Time to Perform" type="number" />
+          </div>
+          <div class="col">
+            <q-checkbox left-label v-model="store.randomizeTechniques" label="Randomize Order" />
+          </div>
+        </div>
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn color="primary" label="Generate" :to="{ name: 'FlashCards' }" />
+      </q-card-actions>
+    </q-card>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
+import { BeltColors, Technique } from 'src/models/Technique';
+import { useKenpoStore } from 'src/stores/kenpoStore';
+import { Ref, ref } from 'vue';
 
 defineOptions({
-  name: 'IndexPage'
+  name: 'IndexPage',
 });
 
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
-
-const meta = ref<Meta>({
-  totalCount: 1200
-});
+const store = useKenpoStore();
+const yellowTechniques: Ref<Technique[]> = ref(store.getTechniquesByBelt(BeltColors.Yellow));
+const orangeTechniques: Ref<Technique[]> = ref(store.getTechniquesByBelt(BeltColors.Orange));
 </script>
