@@ -29,11 +29,14 @@ async function chooseTechniques() {
   let index = ref(0);
   while (true) {
     if (store.randomizeTechniques) {
-      index.value = Math.floor(Math.random() * filteredTechniques.value.length);
-      currentTechnique.value = filteredTechniques.value[index.value].TechniqueName;
-    } else {
-      currentTechnique.value = filteredTechniques.value[index.value].TechniqueName;
+      let tempIndex = index.value;
+      while (tempIndex === index.value) {
+        tempIndex = Math.floor(Math.random() * filteredTechniques.value.length);
+      }
+      index.value = tempIndex;
     }
+
+    currentTechnique.value = filteredTechniques.value[index.value].TechniqueName;
 
     switch (filteredTechniques.value[index.value].Belt) {
       case BeltColors.Yellow:
@@ -46,21 +49,21 @@ async function chooseTechniques() {
         break;
       case BeltColors.Purple:
         background.value = 'purple';
-        fontColor.value = 'white';
+        fontColor.value = 'black';
         break;
       case BeltColors.Blue:
         background.value = 'blue';
-        fontColor.value = 'white';
+        fontColor.value = 'black';
         break;
       case BeltColors.Green:
         background.value = 'green';
-        fontColor.value = 'white';
+        fontColor.value = 'black';
         break;
       case BeltColors.Brown1:
       case BeltColors.Brown2:
       case BeltColors.Brown3:
-        background.value = 'brown';
-        fontColor.value = 'white';
+        background.value = '#5c2e00';
+        fontColor.value = 'black';
         break;
       case BeltColors.Black:
         background.value = 'black';
