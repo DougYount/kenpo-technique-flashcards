@@ -1,6 +1,7 @@
 export interface Technique {
   Belt: BeltColors;
   TechniqueName: string;
+  OpponentInteraction: string;
   TimeToPerform: number;
   IncludedInFlashcards: boolean;
 }
