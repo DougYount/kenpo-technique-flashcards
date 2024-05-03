@@ -155,6 +155,9 @@
           <div class="col">
             <q-checkbox left-label v-model="store.randomizeTechniques" label="Randomize Order" />
           </div>
+          <div class="col">
+            <q-checkbox left-label v-model="store.displayOpponentInteraction" label="Display Opponent Interaction" />
+          </div>
         </div>
       </q-card-section>
       <q-card-actions align="right">

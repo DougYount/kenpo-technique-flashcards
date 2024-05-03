@@ -1,16 +1,26 @@
 <template>
   <div
-    class="fullscreen text-center q-pa-md flex flex-center"
+    class="fullscreen text-center q-pa-md"
     :style="{ backgroundColor: background, color: fontColor }"
   >
-    <div style="font-size: 20vh">{{ currentTechnique }}</div>
+    <div class="row">
+      <div class="col-12">
+        <div style="font-size: 20vh">{{ currentTechnique }}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div v-if="store.displayOpponentInteraction" style="font-size: 5vh">{{ opponentInteraction }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { BeltColors } from 'src/models/Technique';
 import { useKenpoStore } from 'src/stores/kenpoStore';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 defineOptions({
   name: 'FlashCards',
@@ -20,9 +30,16 @@ onMounted(async () => {
   await chooseTechniques();
 });
 
+const router = useRouter();
+
 const store = useKenpoStore();
-const filteredTechniques = ref(store.getFilteredTechniques);
+const filteredTechniques = computed(() => {
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+  if (store.getFilteredTechniques.length < 1) router.push({ name: 'Index' });
+  return store.getFilteredTechniques;
+});
 const currentTechnique = ref('');
+const opponentInteraction = ref('');
 const background = ref('white');
 const fontColor = ref('black');
 async function chooseTechniques() {
@@ -37,6 +54,7 @@ async function chooseTechniques() {
     }
 
     currentTechnique.value = filteredTechniques.value[index.value].TechniqueName;
+    opponentInteraction.value = filteredTechniques.value[index.value].OpponentInteraction;
 
     switch (filteredTechniques.value[index.value].Belt) {
       case BeltColors.Yellow:
