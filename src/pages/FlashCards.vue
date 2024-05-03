@@ -1,16 +1,15 @@
 <template>
-  <div
-    class="fullscreen text-center q-pa-md"
-    :style="{ backgroundColor: background, color: fontColor }"
-  >
-    <div class="row">
-      <div class="col-12">
-        <div style="font-size: 20vh">{{ currentTechnique }}</div>
+  <div class="fullscreen text-center items-center row" :style="{ backgroundColor: background, color: fontColor }">
+    <div class="col">
+      <div class="row">
+        <div class="col-12">
+          <div style="font-size: 10vw">{{ currentTechnique }}</div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <div v-if="store.displayOpponentInteraction" style="font-size: 5vh">{{ opponentInteraction }}</div>
+      <div class="row">
+        <div class="col-12">
+          <div v-if="store.displayOpponentInteraction" style="font-size: 5vw">{{ opponentInteraction }}</div>
+        </div>
       </div>
     </div>
   </div>
