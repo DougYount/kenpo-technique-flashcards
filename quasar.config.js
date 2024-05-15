@@ -51,7 +51,7 @@ module.exports = configure(function (/* ctx */) {
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-      // publicPath: '/',
+      publicPath: '/kenpo-technique-flashcards/spa/',
       // analyze: true,
       // env: {},
       // rawDefine: {}
