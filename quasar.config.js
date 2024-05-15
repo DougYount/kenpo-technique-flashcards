@@ -45,7 +45,7 @@ module.exports = configure(function (/* ctx */) {
       },
 
       vueRouterMode: 'history', // available values: 'hash', 'history'
-      // vueRouterBase,
+      vueRouterBase: '/kenpo-technique-flashcards/',
       // vueDevtools,
       // vueOptionsAPI: false,
 
